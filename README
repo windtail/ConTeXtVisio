@@ -37,6 +37,8 @@ i do not fully understand visio VBAs
 ** Copy the visio directory to <texmf-local>\context\third\
 ** in ConTeXt prompt, run luatools --generate
 ** see README in clibs directory
+** it depends on MD5 too, i suggest installing LuaForWindows(http://code.google.com/p/luaforwindows/)
+   and copy all its lua and C modules to luatex package.path/cpath
 
 * Command
 
