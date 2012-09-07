@@ -1,0 +1,7 @@
+﻿Copy the dll's to one of the package.cpath, if you do not know luatex's cpath,
+just compile luapath.tex
+
+luacom.dll: a modified luacom, see https://github.com/windtail/luacom
+iconv.dll: lua-iconv module, see http://ittner.github.com/lua-iconv/
+           this dll is compiled on mingw, so it depends on libiconv-2.dll
+libiconv-2.dll: iconv.dll depends on it

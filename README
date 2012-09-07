@@ -1,0 +1,78 @@
+﻿* Introduction
+
+Help including visio graph into ConTeXt MKIV document.
+
+** where to search the visio file  ?
+1. "."
+2. "./image"
+3. "./figure"
+4. "./visio"
+5.  search in global search directory list (see \setupvisiodirectory below)
+
+** where are the converted PDF files ?
+All PDF files are in  PDF output directory (see \setupvisiodirectory ),
+the output directory will be created automatically at first PDF outputting.
+
+The PDF filename is determine by  MD5 value of user supplied visio file name, with a prefix('p')
+
+** why use such strange PDF names ?
+Currently MKIV do not support including filenames with Chinese characters(this is the Microsoft problem) , 
+i have to convert it English name and keep the each filename unique, md5 is a simple and suitable
+algorithm.
+
+** what the source and system encoding ?
+source encoding is the tex source file's encoding, usually UTF-8,
+system encoding is the Windows system encoding, for me its gb2312, all file names are encoded with
+gb2312. you can change it using \setupvisioencoding  command
+
+** what you did to my visio files ?
+i export it to PDF file with specified margin, i have to change some print settings,
+but i did not save that changes, so i did nothing to your visio files.
+
+The operations to VISIO file is modified according to a manually recored VBA macro, DON'T ask me why,
+i do not fully understand visio VBAs
+
+* Install
+
+** Copy the visio directory to <texmf-local>\context\third\
+** in ConTeXt prompt, run luatools --generate
+** see README in clibs directory
+
+* Command
+
+\setupvisiodirectory[1][2]
+  #1 pdf,visio
+  #2 
+     #1=pdf 
+        PDF output directory, absolute or related path (default to current directory)
+      
+     #1=visio 
+      	global VISIO search directory comma list (default empty list)
+  
+\usevisio[1][2]
+  #1 visio filename without .vsd extension (absolute or related path)
+  #2 optional margins (uint: mm)
+     left  = NUMBER (default 0)
+     right = NUMBER
+     top   = NUMBER
+     bottom= NUMBER
+
+\visio[1][2] 
+  #1 visio filename without .vsd, MUST be the same with that used in \usevisio 
+  #2 (optional) the same as the last parameter of \externalfigure (because i just leave it untouched to \externalfigure ^_^)
+
+\setupvisioencoding[1]
+  #1 source = tex source file encoding(default UTF-8)
+     system = system(Windows) encoding (default GBK)
+
+* Test environment
+
+** Windows XP SP3 simplified Chinese edition
+** ConTeXt : 2012.03.13 
+** LuaTeX : beta-0.70.1-2012031317
+** Visio 2010 (14.0.6.106.5005 32bit simplified Chinese edition)
+
+* Known issues
+
+** sometimes luatex will hang for the first time 
+** dimesion of visio is not output to ConTeXt, that need more work

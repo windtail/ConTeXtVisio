@@ -1,0 +1,53 @@
+%D \module
+%D   [     file=t-visio,
+%D      version=2012.09.07,
+%D        title=\CONTEXT\ User Module,
+%D     subtitle=visio,
+%D       author=Luo Jiejun,
+%D         date=\currentdate,
+%D    copyright=Luo Jiejun,
+%D        email=windtailljj@gmail.com,
+%D      license=GPLv2]
+
+\writestatus{loading}{ConTeXt User Module / visio}
+\startmodule[visio]
+
+\unprotect
+
+\def\??visio{@@visio}	% namespace
+
+\ctxloadluafile{visio}
+
+\def\setupvisiodirectory[#1][#2]{%
+	\ctxlua{visio.setupDirectory("#1","#2")}
+}
+
+\def\setupvisioencoding{\dosingleempty\dosetupvisioencoding}
+\def\dosetupvisioencoding[#1]{%
+	\geteparameters[\??visio][source=,system=,#1]
+	\ctxlua{visio.setupEncoding("\@@visiosystem","\@@visiosource")}
+}
+
+% #1 visio
+% #2 margin [... = ...]
+%   left = number
+%   right = number
+%   top = number
+%   bottom = number (单位mm)
+\def\usevisio{\dodoubleempty\dousevisio}
+
+\def\dousevisio[#1][#2]{	
+	\edef\@@visiovisio{#1}	
+	\geteparameters[\??visio][left=0,right=0,top=0,bottom=0,#2]
+	\ctxlua{visio.useVisio("\@@visiovisio",\@@visioleft,\@@visioright,\@@visiotop,\@@visiobottom)}
+}
+
+\def\visio{\dodoubleempty\dovisio}
+\def\dovisio[#1][#2]{
+	\ctxlua{visio.visio("#1")}[#2]
+}
+
+\protect
+\stopmodule
+\endinput
+

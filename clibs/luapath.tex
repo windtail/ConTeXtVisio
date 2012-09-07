@@ -1,0 +1,24 @@
+
+\starttext
+
+\startlua
+
+function splitpaths(paths)
+	paths = paths:gsub("\\","/")
+	for path in paths:gmatch("([^;]+)") do		
+		context(path)
+		context.par()
+	end
+end
+
+function getluapath()
+	context.section("lua module")
+	splitpaths(package.path)
+
+	context.section("c module")
+	splitpaths(package.cpath)
+end
+\stoplua
+\ctxlua{getluapath()}
+
+\stoptext
